@@ -1,15 +1,20 @@
 'use client'
 import { useState } from "react";
 
+interface Message {
+  role: string;
+  content: string;
+}
+
 export default function Home() {
   const [topic, setTopic] = useState("");
   const [customTopic, setCustomTopic] = useState("");
   const [argument, setArgument] = useState("");
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState("medium");
   const [gameStarted, setGameStarted] = useState(false);
-  const [finalResult, setFinalResult] = useState(null);
+  const [finalResult, setFinalResult] = useState<string | null>(null);
 
   const topics = [
     "Social Media does more harm than good",
@@ -28,7 +33,7 @@ export default function Home() {
     if (!argument.trim() && !endDebate) return;
     setLoading(true);
 
-    const userMessage = { role: "user", content: argument };
+    const userMessage: Message = { role: "user", content: argument };
     const newHistory = endDebate ? history : [...history, userMessage];
 
     try {
@@ -49,7 +54,7 @@ export default function Home() {
       if (endDebate) {
         setFinalResult(data.response);
       } else {
-        const aiMessage = { role: "assistant", content: data.response };
+        const aiMessage: Message = { role: "assistant", content: data.response };
         setHistory([...newHistory, aiMessage]);
       }
       setArgument("");
@@ -170,7 +175,7 @@ export default function Home() {
             <p className="text-sm mt-2">The AI will argue the opposite side</p>
           </div>
         )}
-        {history.map((msg: any, i: number) => (
+        {history.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`max-w-[80%] p-4 rounded-2xl ${
               msg.role === "user"

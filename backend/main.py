@@ -12,7 +12,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -51,7 +51,8 @@ async def debate(message: DebateMessage):
         6. Top 3 Weaknesses
         7. Logical Fallacies used
         8. Final Verdict: Who won and why
-        9. Tips to improve"""
+        9. Tips to improve
+        Keep the entire feedback concise and easy to read, under 200 words total."""
     else:
         system_prompt = f"""You are a world-class expert debate opponent.
         Debate Topic: {message.topic}
@@ -60,8 +61,10 @@ async def debate(message: DebateMessage):
         - ALWAYS argue the OPPOSITE side of the user
         - Use facts, statistics, and expert opinions
         - Point out logical fallacies
-        - Keep response under 150 words
-        - End with a challenging question"""
+        - Match your response length to the user's input length — if they write short, you write short; if they write long, you can write more
+        - NEVER exceed 60 words maximum
+        - Be sharp, punchy and concise — no long paragraphs
+        - End with ONE short challenging question"""
 
     history_messages = [
         {"role": msg.role, "content": msg.content}
