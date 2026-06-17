@@ -92,8 +92,11 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-center text-blue-400 mb-2">
             🎙️ AI Debate Coach
           </h1>
-          <p className="text-center text-gray-400 mb-8">
+          <p className="text-center text-gray-400 mb-2">
             Practice debating with AI — get scored & improve!
+          </p>
+          <p className="text-center text-gray-500 text-sm mb-8">
+            Built by Bhagyashree 💙
           </p>
 
           <div className="mb-6">
