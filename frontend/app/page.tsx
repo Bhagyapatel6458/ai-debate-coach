@@ -32,7 +32,7 @@ export default function Home() {
     const newHistory = endDebate ? history : [...history, userMessage];
 
     try {
-      const res = await fetch("http://localhost:8000/debate", {
+      const res = await fetch("https://ai-debate-coach-k8wv.onrender.com/debate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
